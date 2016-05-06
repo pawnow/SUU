@@ -1,5 +1,5 @@
 package common.api;
 
-public interface Consumer {
-    void consume(Object configuration);
+public interface Consumer<T> {
+    void consume(T configuration);
 }
