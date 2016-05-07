@@ -1,0 +1,24 @@
+<jxb:bindings version="1.0"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+              xmlns:annox="http://annox.dev.java.net"
+              jxb:extensionBindingPrefixes="xjc annox">
+
+    <jxb:bindings schemaLocation="../schema/message.xsd" node="/xs:schema">
+        <jxb:bindings node="xs:element[@name='Message']">
+            <annox:annotate>
+                <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="Message"/>
+            </annox:annotate>
+        </jxb:bindings>
+    </jxb:bindings>
+
+    <jxb:bindings schemaLocation="../schema/configuration.xsd" node="/xs:schema">
+        <jxb:bindings node="xs:element[@name='Configuration']">
+            <annox:annotate>
+                <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="Configuration"/>
+            </annox:annotate>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

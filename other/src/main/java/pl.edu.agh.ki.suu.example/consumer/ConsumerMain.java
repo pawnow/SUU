@@ -1,6 +1,6 @@
 package pl.edu.agh.ki.suu.example.consumer;
 
-import pl.edu.agh.ki.suu.example.Message;
+import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.mongo.factories.MongoConsumerFactory;
 
 import static pl.edu.agh.ki.suu.common.api.Defaults.*;

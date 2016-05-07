@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>suu</artifactId>
-        <groupId>edu.agh.suu</groupId>
+        <groupId>pl.edu.agh.ki.suu</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,6 +13,51 @@
     <packaging>jar</packaging>
     <name>pl.edu.agh.ki.suu|cdm</name>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <extension>true</extension>
+                            <arguments>
+                                <argument>-Xannotate</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- The package of your generated sousrces -->
+                    <packageName>pl.edu.agh.ki.suu.common.cdm</packageName>
+                    <xjbSources>
+                        <xjbSource>src/main/resources/xjb/bindings.xjb</xjbSource>
+                    </xjbSources>
+                    <sources>
+                        <source>src/main/resources/schema/message.xsd</source>
+                        <source>src/main/resources/schema/configuration.xsd</source>
+                    </sources>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-basics-annotate</artifactId>
+                        <version>0.6.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.codemodel</groupId>
+                        <artifactId>codemodel</artifactId>
+                        <version>2.6</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
