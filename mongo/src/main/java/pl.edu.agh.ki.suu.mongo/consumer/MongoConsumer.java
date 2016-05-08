@@ -2,6 +2,7 @@ package pl.edu.agh.ki.suu.mongo.consumer;
 
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
+import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.common.consumer.AbstractClientConsumer;
 import pl.edu.agh.ki.suu.common.api.Consumer;
 import org.bson.Document;
@@ -20,6 +21,7 @@ public class MongoConsumer extends AbstractClientConsumer {
 
     private Class pojoType = null;
 
+    @Override
     public void start() {
         validateConfiguration();
         super.consumer = consumer;
@@ -51,9 +53,10 @@ public class MongoConsumer extends AbstractClientConsumer {
             return null;
         }
         String config = result.getString(CONFIG_KEY);
+        String payload = gson.fromJson(config, Message.class).getPayload();
         if (pojoType == null) {
-            return gson.fromJson(config, Map.class);
+            return gson.fromJson(payload, Map.class);
         }
-        return gson.fromJson(config, pojoType);
+        return gson.fromJson(payload, pojoType);
     }
 }

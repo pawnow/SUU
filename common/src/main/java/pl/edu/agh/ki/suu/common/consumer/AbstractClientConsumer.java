@@ -1,10 +1,11 @@
 package pl.edu.agh.ki.suu.common.consumer;
 
 import pl.edu.agh.ki.suu.common.api.Consumer;
+import pl.edu.agh.ki.suu.common.api.ConsumerClient;
 
 import static pl.edu.agh.ki.suu.common.api.Defaults.MONGO_CHECKIN_INTERVAL;
 
-public abstract class AbstractClientConsumer {
+public abstract class AbstractClientConsumer implements ConsumerClient {
 
     protected Consumer consumer;
 
