@@ -10,6 +10,7 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import pl.edu.agh.ki.suu.common.cdm.Message;
 
 import javax.jms.ConnectionFactory;
 
@@ -31,8 +32,13 @@ public class UsageExampleJMS {
     }
 
     public static void main(String[] args) {
+
         ApplicationContext applicationContext = SpringApplication.run(UsageExampleJMS.class, args);
-        MessageCreator messageCreator = session -> session.createTextMessage("REMOTEJMS");
+        final Message message = new Message();
+        message.setSender(new Message.Sender());
+        message.setTimeout("12345");
+        message.setPayload("LOCALJMS");
+        MessageCreator messageCreator = session -> session.createObjectMessage(message);
         JmsTemplate jmsTemplate = applicationContext.getBean(JmsTemplate.class);
         System.out.println("Sending a new remote JMS message. WARNING: not working yet");
         //TODO: may not work easily: http://stackoverflow.com/questions/34607596/spring-boot-sharing-embedded-jms-broker-with-separate-service
