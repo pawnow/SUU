@@ -1,4 +1,4 @@
-package pl.edu.agh.ki.suu.server;
+package pl.edu.agh.ki.suu.server.model;
 
 public class Hello {
     private String message = "Hello";
