@@ -26,6 +26,7 @@
         <spring-boot.version>1.3.4.RELEASE</spring-boot.version>
         <camel.version>2.17.0</camel.version>
         <activemq.version>5.13.2</activemq.version>
+        <wsdl4j.version>1.6.3</wsdl4j.version>
     </properties>
 
     <build>

@@ -10,6 +10,8 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 
 import javax.jms.ConnectionFactory;
@@ -32,7 +34,6 @@ public class UsageExampleJMS {
     }
 
     public static void main(String[] args) {
-
         ApplicationContext applicationContext = SpringApplication.run(UsageExampleJMS.class, args);
         final Message message = new Message();
         message.setSender(new Message.Sender());
@@ -43,6 +44,33 @@ public class UsageExampleJMS {
         System.out.println("Sending a new remote JMS message. WARNING: not working yet");
         //TODO: may not work easily: http://stackoverflow.com/questions/34607596/spring-boot-sharing-embedded-jms-broker-with-separate-service
         jmsTemplate.send("messages", messageCreator);
+
+        UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
+        usageExampleSoap.sendSoapRequest();
+    }
+
+    @Bean
+    public WebServiceTemplate webServiceTemplate(){
+        WebServiceTemplate template = new WebServiceTemplate();
+        template.setDefaultUri("http://localhost:8080/ws");
+        template.setMarshaller(messageMarshaller());
+        return template;
+    }
+
+    @Bean
+    public Jaxb2Marshaller messageMarshaller(){
+        final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setClassesToBeBound(Message.class);
+        return marshaller;
+        /*Marshaller marshaller = new CastorMarshaller();
+        marshaller.supports(Message.class);
+        return marshaller;*/
+        /*try {
+            return JAXBContext.newInstance(Message.class).createMarshaller();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return null;*/
     }
 
 }
