@@ -1,7 +1,7 @@
 package pl.edu.agh.ki.suu.client;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +18,8 @@ import javax.jms.ConnectionFactory;
 
 @SpringBootApplication
 @EnableJms
+@EnableAutoConfiguration
 public class UsageExampleJMS {
-
-    private static final String JMS_BROKER_URL = "vm://localhost?broker.persistent=false&broker.useJmx=false";
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        return new ActiveMQConnectionFactory(JMS_BROKER_URL);
-    }
 
     @Bean
     JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
@@ -62,15 +57,6 @@ public class UsageExampleJMS {
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(Message.class);
         return marshaller;
-        /*Marshaller marshaller = new CastorMarshaller();
-        marshaller.supports(Message.class);
-        return marshaller;*/
-        /*try {
-            return JAXBContext.newInstance(Message.class).createMarshaller();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return null;*/
     }
 
 }

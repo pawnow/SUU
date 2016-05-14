@@ -1,7 +1,9 @@
 package pl.edu.agh.ki.suu.server;
 
+import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,7 @@ import javax.jms.Queue;
 
 @SpringBootApplication
 @EnableJms
+@EnableAutoConfiguration
 public class SuuServiceApp {
 
     @Bean
@@ -32,6 +35,13 @@ public class SuuServiceApp {
     }
 
     public static void main(String[] args) {
+        BrokerService broker = new BrokerService();
+        try {
+            broker.addConnector("tcp://localhost:61616");
+            broker.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES","*");
         ApplicationContext applicationContext = SpringApplication.run(SuuServiceApp.class, args);
         final Message message = new Message();
