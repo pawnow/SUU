@@ -25,11 +25,12 @@ public class UsageExampleJMS {
         jmsTemplate.send("messages", messageCreator);
     }
 
-    public void processJmsClient(String operation, String senderAddress){
+    public void processJmsClient(String operation, String senderAddress, String senderName){
         final Configuration configuration = new Configuration();
         final Configuration.Sender sender = new Configuration.Sender();
         sender.setAddress(senderAddress);
         configuration.setSender(sender);
+        configuration.setProtocolVersion("REST");
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
         MessageCreator messageCreator = session -> session.createObjectMessage(configuration);
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);

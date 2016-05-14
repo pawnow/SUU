@@ -26,8 +26,10 @@ public class UsageExampleREST {
         final Configuration configuration = new Configuration();
         final Configuration.Sender sender = new Configuration.Sender();
         sender.setAddress("qwerty");
+        sender.setName("asd");
         configuration.setSender(sender);
-        restTemplate.postForObject("http://localhost:8080/suu/regiter", configuration, String.class);
+        configuration.setProtocolVersion("JMS");
+        restTemplate.postForObject("http://localhost:8080/suu/register", configuration, String.class);
     }
 
 }

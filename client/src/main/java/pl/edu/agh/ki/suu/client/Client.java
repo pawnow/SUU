@@ -17,8 +17,7 @@ public class Client {
         UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
         //usageExampleSoap.sendSoapRequest();
         usageExampleJMS.sendJmsMessage();
-        usageExampleJMS.processJmsClient("register", "qwerty1");
-        usageExampleJMS.processJmsClient("unregister", "qwerty2");
+        usageExampleJMS.processJmsClient("register", "qwerty1", "asd1");
     }
 
 }

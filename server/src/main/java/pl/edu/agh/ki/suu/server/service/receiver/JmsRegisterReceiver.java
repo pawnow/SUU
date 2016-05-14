@@ -1,4 +1,4 @@
-package pl.edu.agh.ki.suu.server.service;
+package pl.edu.agh.ki.suu.server.service.receiver;
 
 import org.springframework.stereotype.Service;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
