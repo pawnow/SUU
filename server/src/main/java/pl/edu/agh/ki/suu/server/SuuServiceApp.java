@@ -35,6 +35,12 @@ public class SuuServiceApp {
     }
 
     public static void main(String[] args) {
+        startJMSBroker();
+        enableSerializeCustomPackages();
+        SpringApplication.run(SuuServiceApp.class, args);
+    }
+
+    private static void startJMSBroker(){
         BrokerService broker = new BrokerService();
         try {
             broker.addConnector("tcp://localhost:61616");
@@ -42,16 +48,10 @@ public class SuuServiceApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void enableSerializeCustomPackages(){
         System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES","*");
-        ApplicationContext applicationContext = SpringApplication.run(SuuServiceApp.class, args);
-        final Message message = new Message();
-        message.setSender(new Message.Sender());
-        message.setTimeout("12345");
-        message.setPayload("LOCALJMS");
-        MessageCreator messageCreator = session -> session.createObjectMessage(message);
-        JmsTemplate jmsTemplate = applicationContext.getBean(JmsTemplate.class);
-        System.out.println("Sending a new JMS message.");
-        jmsTemplate.send("messages", messageCreator);
     }
 
 }
