@@ -4,6 +4,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
+import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 
 import javax.jms.ConnectionFactory;
@@ -23,5 +24,18 @@ public class UsageExampleJMS {
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
         jmsTemplate.send("messages", messageCreator);
     }
+
+    public void processJmsClient(String operation, String senderAddress){
+        final Configuration configuration = new Configuration();
+        final Configuration.Sender sender = new Configuration.Sender();
+        sender.setAddress(senderAddress);
+        configuration.setSender(sender);
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
+        MessageCreator messageCreator = session -> session.createObjectMessage(configuration);
+        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
+        jmsTemplate.send(operation, messageCreator);
+    }
+
+
 
 }

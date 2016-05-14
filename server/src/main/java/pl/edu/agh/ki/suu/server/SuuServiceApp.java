@@ -28,6 +28,12 @@ public class SuuServiceApp {
     }
 
     @Bean
+    public Queue queueRegister() { return new ActiveMQQueue("register"); }
+
+    @Bean
+    public Queue queueUnregister() { return new ActiveMQQueue("unregister"); }
+
+    @Bean
     JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
         SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
