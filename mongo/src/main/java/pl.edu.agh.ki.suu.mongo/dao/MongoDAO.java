@@ -27,6 +27,7 @@ public class MongoDAO {
     }
 
     public void enqueue(Message message) {
+        //TODO: add null check
         enqueue(message, message.getTarget().getName());
     }
 
