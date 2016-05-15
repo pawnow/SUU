@@ -16,7 +16,7 @@ public class TransformerTest {
     private Transformer transformer = new Transformer();
 
     private final String MESSAGE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<Message>" +
+            "<ns2:Message xmlns:ns2=\"http://localhost:8080/ws\">" +
             "<ProtocolVersion>latest protocol version</ProtocolVersion>" +
             "<Sender>" +
             "<Name>client1</Name>" +
@@ -29,7 +29,8 @@ public class TransformerTest {
             "<Timestamp>2016-30-05-20:20:05</Timestamp>" +
             "<Timeout>500000</Timeout>" +
             "<Payload>My message!</Payload>" +
-            "</Message>";
+            "</ns2:Message>";
+
 
     private final String CONF_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
             "<Configuration>" +
