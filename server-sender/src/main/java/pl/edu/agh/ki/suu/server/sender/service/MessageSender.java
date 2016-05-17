@@ -1,4 +1,4 @@
-package pl.edu.agh.ki.suu.server.service.sender;
+package pl.edu.agh.ki.suu.server.sender.service;
 
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;

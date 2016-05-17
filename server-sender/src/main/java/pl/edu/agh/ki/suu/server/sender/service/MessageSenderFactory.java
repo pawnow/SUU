@@ -1,8 +1,8 @@
-package pl.edu.agh.ki.suu.server.service.sender;
+package pl.edu.agh.ki.suu.server.sender.service;
 
-import pl.edu.agh.ki.suu.server.service.sender.impl.JmsMessageSender;
-import pl.edu.agh.ki.suu.server.service.sender.impl.RestMessageSender;
-import pl.edu.agh.ki.suu.server.service.sender.impl.SoapMessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.impl.JmsMessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.impl.RestMessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.impl.SoapMessageSender;
 
 public class MessageSenderFactory {
 

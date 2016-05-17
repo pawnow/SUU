@@ -3,7 +3,7 @@ package pl.edu.agh.ki.suu.server.repository.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
-import pl.edu.agh.ki.suu.server.daemon.DaemonMessageSender;
+import pl.edu.agh.ki.suu.server.sender.daemon.DaemonMessageSender;
 import pl.edu.agh.ki.suu.server.repository.ClientRepository;
 
 import java.util.HashSet;

@@ -1,11 +1,11 @@
-package pl.edu.agh.ki.suu.server.service.sender.impl;
+package pl.edu.agh.ki.suu.server.sender.service.impl;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
-import pl.edu.agh.ki.suu.server.service.sender.MessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 
 import javax.jms.ConnectionFactory;
 

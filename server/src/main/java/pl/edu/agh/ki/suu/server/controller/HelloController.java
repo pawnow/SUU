@@ -28,7 +28,10 @@ public class HelloController {
     private Queue queue;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private Queue registerQueue;
+
+    @Autowired
+    private Queue unregisterQueue;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public Hello getHello(){
@@ -45,12 +48,12 @@ public class HelloController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody Configuration configuration){
-        this.clientRepository.addClient(configuration);
+        this.jmsMessagingTemplate.convertAndSend(this.registerQueue, configuration);
     }
 
     @RequestMapping(value = "/unregister", method = RequestMethod.POST)
     public void unregister(@RequestBody Configuration configuration){
-        this.clientRepository.removeClient(configuration);
+        this.jmsMessagingTemplate.convertAndSend(this.unregisterQueue, configuration);
     }
 
 }

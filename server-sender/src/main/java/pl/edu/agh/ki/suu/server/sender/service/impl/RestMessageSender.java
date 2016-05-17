@@ -1,9 +1,9 @@
-package pl.edu.agh.ki.suu.server.service.sender.impl;
+package pl.edu.agh.ki.suu.server.sender.service.impl;
 
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
-import pl.edu.agh.ki.suu.server.service.sender.MessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 
 public class RestMessageSender implements MessageSender {
 

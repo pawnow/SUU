@@ -15,7 +15,7 @@ public class Client {
         ApplicationContext applicationContext = SpringApplication.run(Client.class, args);
         UsageExampleJMS usageExampleJMS = applicationContext.getBean(UsageExampleJMS.class);
         UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
-        //usageExampleSoap.sendSoapRequest();
+        usageExampleSoap.sendSoapRequest();
         usageExampleJMS.sendJmsMessage();
         usageExampleJMS.processJmsClient("register", "qwerty1", "asd1");
     }

@@ -1,15 +1,12 @@
-package pl.edu.agh.ki.suu.server.daemon;
+package pl.edu.agh.ki.suu.server.sender.daemon;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
-import pl.edu.agh.ki.suu.server.repository.ClientRepository;
-import pl.edu.agh.ki.suu.server.service.sender.MessageSender;
-import pl.edu.agh.ki.suu.server.service.sender.MessageSenderFactory;
+import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.MessageSenderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
