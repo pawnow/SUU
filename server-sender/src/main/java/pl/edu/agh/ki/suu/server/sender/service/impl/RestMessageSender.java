@@ -10,15 +10,17 @@ public class RestMessageSender implements MessageSender {
 
     @Override
     public void send(Message message, Configuration client) {
-        throw new SendingFailedException();
-//        System.out.println("Send Message: " + message.getPayload() + " to: " + message.getTarget().getName() + " " + message.getTarget().getAddress() + " using REST");
-//        String url = prepareUrl(message);
-//        RestTemplate restTemplate = new RestTemplate();
-//        restTemplate.postForObject(url, message, String.class);
+        System.out.println("Send Message: " + message.getPayload() + " to: " + message.getTarget().getName() + " " + message.getTarget().getAddress() + " using REST");
+        String url = prepareUrl(client);
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            restTemplate.postForObject(url, message, String.class);
+        }catch (Exception e){
+            throw new SendingFailedException();
+        }
     }
 
-    private String prepareUrl(Message message) {
-        // TODO create url using message.getTarget().getAddress() or client.getSender().getAddress()
-        return message.getTarget().getAddress();
+    private String prepareUrl(Configuration client) {
+        return client.getSender().getAddress();
     }
 }
