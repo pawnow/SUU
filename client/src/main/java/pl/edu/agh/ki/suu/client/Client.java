@@ -15,8 +15,10 @@ public class Client {
         ApplicationContext applicationContext = SpringApplication.run(Client.class, args);
         UsageExampleJMS usageExampleJMS = applicationContext.getBean(UsageExampleJMS.class);
         UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
+        UsageExampleMail usageExampleMail = applicationContext.getBean(UsageExampleMail.class);
         usageExampleSoap.sendSoapRequest();
         usageExampleJMS.sendJmsMessage();
+        usageExampleMail.sendMail();
     }
 
 }
