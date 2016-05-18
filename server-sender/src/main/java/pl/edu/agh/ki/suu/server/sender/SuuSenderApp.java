@@ -14,9 +14,11 @@ import pl.edu.agh.ki.suu.mongo.dao.MongoDAO;
 public class SuuSenderApp {
 
     @Bean
-    public MongoDAO mongoDAO() { return new MongoDAO(); }
+    public MongoDAO mongoDAO() {
+        return new MongoDAO();
+    }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(SuuSenderApp.class);
     }
 }

@@ -33,6 +33,7 @@ public class MongoDAO {
         enqueue(message, message.getTarget().getName());
     }
 
+    @SuppressWarnings("unchecked")
     public void enqueue(Message message, String queueName) {
         collectionRetriever
                 .getMongoCollection(dbname, queueName)
@@ -43,6 +44,7 @@ public class MongoDAO {
         return gson.fromJson(collectionRetriever.getMongoCollection(dbname, queueName).findOneAndDelete(new Document()).toJson(), Message.class);
     }
 
+    @SuppressWarnings("unchecked")
     public void register(Configuration configuration, String queueName){
         collectionRetriever
                 .getMongoCollection(dbname, queueName)

@@ -10,15 +10,15 @@ import static pl.edu.agh.ki.suu.common.api.Constants.SOAP_PROTOCOL_NAME;
 
 public class MessageSenderFactory {
 
-    public static MessageSender getMessageSender(String protocolVersion){
-        if(protocolVersion == null){
+    public static MessageSender getMessageSender(String protocolVersion) {
+        if (protocolVersion == null) {
             return null;
         }
-        if(protocolVersion.equalsIgnoreCase(JMS_PROTOCOL_NAME)){
+        if (protocolVersion.equalsIgnoreCase(JMS_PROTOCOL_NAME)) {
             return new JmsMessageSender();
-        }else if(protocolVersion.equalsIgnoreCase(REST_PROTOCOL_NAME)){
+        } else if (protocolVersion.equalsIgnoreCase(REST_PROTOCOL_NAME)) {
             return new RestMessageSender();
-        }else if(protocolVersion.equalsIgnoreCase(SOAP_PROTOCOL_NAME)){
+        } else if (protocolVersion.equalsIgnoreCase(SOAP_PROTOCOL_NAME)) {
             return new SoapMessageSender();
         }
         return null;

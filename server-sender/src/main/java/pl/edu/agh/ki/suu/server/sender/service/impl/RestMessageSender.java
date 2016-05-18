@@ -8,14 +8,14 @@ import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 public class RestMessageSender implements MessageSender {
 
     @Override
-    public void send(Message message) {
+    public void send(Message message, Configuration client) {
         System.out.println("Send Message: " + message.getPayload() + " to: " + message.getTarget().getName() + " " + message.getTarget().getAddress() + " using REST");
 //        String url = prepareUrl(message);
 //        RestTemplate restTemplate = new RestTemplate();
 //        restTemplate.postForObject(url, message, String.class);
     }
 
-    private String prepareUrl(Message message){
+    private String prepareUrl(Message message) {
         // TODO create url using message.getTarget().getAddress() or client.getSender().getAddress()
         return message.getTarget().getAddress();
     }

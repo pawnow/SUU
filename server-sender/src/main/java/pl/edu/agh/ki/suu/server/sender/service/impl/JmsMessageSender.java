@@ -9,10 +9,10 @@ import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 
 import javax.jms.ConnectionFactory;
 
-public class JmsMessageSender implements MessageSender{
+public class JmsMessageSender implements MessageSender {
 
     @Override
-    public void send(Message message) {
+    public void send(Message message, Configuration client) {
         System.out.println("Send Message To: " + message.getTarget().getName() + " " + message.getTarget().getAddress() + " using JMS");
 //        String jms_broker_url = prepareJmsBrokerUrl(message);
 //        String destination = prepareDestination(message);
@@ -22,12 +22,12 @@ public class JmsMessageSender implements MessageSender{
 //        jmsTemplate.send(destination, messageCreator);
     }
 
-    private String prepareJmsBrokerUrl(Message message){
+    private String prepareJmsBrokerUrl(Message message) {
         // TODO create jms_broker_url using message and configuration
         return message.getTarget().getAddress();
     }
 
-    private String prepareDestination(Message message){
+    private String prepareDestination(Message message) {
         // TODO create destination string using message and configuration
         return "messages";
     }

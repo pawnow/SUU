@@ -5,5 +5,5 @@ import pl.edu.agh.ki.suu.common.cdm.Message;
 
 public interface MessageSender {
 
-    void send(Message message);
+    void send(Message message, Configuration client) throws SendingFailedException;
 }
