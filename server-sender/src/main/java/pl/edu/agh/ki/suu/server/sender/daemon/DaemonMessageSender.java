@@ -76,13 +76,15 @@ public class DaemonMessageSender extends TimerTask {
         Configuration client;
         Message message;
         if ((client = getRandomClient()) == null || (message = mongoDAO.dequeue(queueName)) == null) {
+            System.out.println("No messages to send or clients to receive...");
             return;
         }
         try {
             MessageSenderFactory
-                    .getMessageSender(message.getProtocolVersion())
+                    .getMessageSender(client.getProtocolVersion())
                     .send(message, client);
         } catch (SendingFailedException e) {
+            System.out.println(String.format("Failed to send message %s to clinet %s", message.getPayload(), client.getSender()));
             mongoDAO.enqueue(message, queueName);
         }
 

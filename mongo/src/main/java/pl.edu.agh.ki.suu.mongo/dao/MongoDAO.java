@@ -42,7 +42,8 @@ public class MongoDAO {
     }
 
     public Message dequeue(String queueName) {
-        return gson.fromJson(collectionRetriever.getMongoCollection(dbname, queueName).findOneAndDelete(new Document()).toJson(), Message.class);
+        Document message = collectionRetriever.getMongoCollection(dbname, queueName).findOneAndDelete(new Document());
+        return message == null ? null : gson.fromJson(message.toJson(), Message.class);
     }
 
     @SuppressWarnings("unchecked")
