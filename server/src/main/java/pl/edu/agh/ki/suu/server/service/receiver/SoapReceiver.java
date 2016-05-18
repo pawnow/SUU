@@ -1,4 +1,4 @@
-package pl.edu.agh.ki.suu.server.service;
+package pl.edu.agh.ki.suu.server.service.receiver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;

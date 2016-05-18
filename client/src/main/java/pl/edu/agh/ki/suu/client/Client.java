@@ -16,7 +16,8 @@ public class Client {
         UsageExampleJMS usageExampleJMS = applicationContext.getBean(UsageExampleJMS.class);
         UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
         usageExampleSoap.sendSoapRequest();
-        usageExampleJMS.sendJmsMessage();
+        usageExampleJMS.sendJmsMessage("JMS", "example_address", "jms1");
+        usageExampleJMS.registerJMSClient("register", "example_address", "jms1");
     }
 
 }
