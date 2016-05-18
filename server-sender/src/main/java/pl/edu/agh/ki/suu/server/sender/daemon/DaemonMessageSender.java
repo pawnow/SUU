@@ -53,15 +53,6 @@ public class DaemonMessageSender{
         return messages;
     }
 
-//    private List<Message> createMySimpleMessages(Configuration client){
-//        final Message message = new Message();
-//        message.setTimeout("12345");
-//        message.setPayload("Message Send From Server in: " + client.getProtocolVersion() + " format");
-//        List<Message> messages = new ArrayList<>();
-//        messages.add(message);
-//        return messages;
-//    }
-
     private void sendMessages(){
         List<Configuration> clients = getAllClients();
         boolean sendFlag = false;
