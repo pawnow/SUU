@@ -12,21 +12,22 @@ import javax.jms.ConnectionFactory;
 public class JmsMessageSender implements MessageSender{
 
     @Override
-    public void send(Message message, Configuration client) {
-        String jms_broker_url = prepareJmsBrokerUrl(message, client);
-        String destination = prepareDestination(message, client);
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(jms_broker_url);
-        MessageCreator messageCreator = session -> session.createObjectMessage(message);
-        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
-        jmsTemplate.send(destination, messageCreator);
+    public void send(Message message) {
+        System.out.println("Send Message To: " + message.getTarget().getName() + " " + message.getTarget().getAddress() + " using JMS");
+//        String jms_broker_url = prepareJmsBrokerUrl(message);
+//        String destination = prepareDestination(message);
+//        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(jms_broker_url);
+//        MessageCreator messageCreator = session -> session.createObjectMessage(message);
+//        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
+//        jmsTemplate.send(destination, messageCreator);
     }
 
-    private String prepareJmsBrokerUrl(Message message, Configuration configuration){
+    private String prepareJmsBrokerUrl(Message message){
         // TODO create jms_broker_url using message and configuration
-        return "tcp://localhost:61616";
+        return message.getTarget().getAddress();
     }
 
-    private String prepareDestination(Message message, Configuration configuration){
+    private String prepareDestination(Message message){
         // TODO create destination string using message and configuration
         return "messages";
     }

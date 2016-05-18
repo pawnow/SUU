@@ -14,23 +14,29 @@ public class UsageExampleJMS {
 
     private static final String JMS_BROKER_URL = "tcp://localhost:61616";
 
-    public void sendJmsMessage(){
+    public void sendJmsMessage(String protocol, String targetAddress, String targetName){
         final Message message = new Message();
+        final Message.Target target = new Message.Target();
+        target.setAddress(targetAddress);
+        target.setName(targetName);
         message.setSender(new Message.Sender());
+        message.setTarget(target);
         message.setTimeout("12345");
         message.setPayload("LOCALJMS");
+        message.setProtocolVersion(protocol);
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
         MessageCreator messageCreator = session -> session.createObjectMessage(message);
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
         jmsTemplate.send("messages", messageCreator);
     }
 
-    public void processJmsClient(String operation, String senderAddress, String senderName){
+    public void registerJMSClient(String operation, String senderAddress, String senderName){
         final Configuration configuration = new Configuration();
         final Configuration.Sender sender = new Configuration.Sender();
         sender.setAddress(senderAddress);
+        sender.setName(senderName);
         configuration.setSender(sender);
-        configuration.setProtocolVersion("REST");
+        configuration.setProtocolVersion("JMS");
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
         MessageCreator messageCreator = session -> session.createObjectMessage(configuration);
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);

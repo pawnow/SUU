@@ -15,7 +15,12 @@ public class UsageExampleREST {
     private static void sendRestMessage(String string){
         RestTemplate restTemplate = new RestTemplate();
         final Message message = new Message();
+        final Message.Target target = new Message.Target();
+        target.setAddress("example_address");
+        target.setName("rest1");
         message.setSender(new Message.Sender());
+        message.setTarget(target);
+        message.setProtocolVersion("REST");
         message.setTimeout("12345");
         message.setPayload(string);
         restTemplate.postForObject("http://localhost:8080/suu/message", message, String.class);
@@ -26,9 +31,9 @@ public class UsageExampleREST {
         final Configuration configuration = new Configuration();
         final Configuration.Sender sender = new Configuration.Sender();
         sender.setAddress("qwerty");
-        sender.setName("asd");
+        sender.setName("rest1");
         configuration.setSender(sender);
-        configuration.setProtocolVersion("JMS");
+        configuration.setProtocolVersion("REST");
         restTemplate.postForObject("http://localhost:8080/suu/register", configuration, String.class);
     }
 

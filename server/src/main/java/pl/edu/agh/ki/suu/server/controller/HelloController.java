@@ -43,7 +43,6 @@ public class HelloController {
     @RequestMapping(value = "/message", method = RequestMethod.POST)
     public void setHello(@RequestBody Message message){
         this.jmsMessagingTemplate.convertAndSend(this.queue, message);
-        System.out.println("RECEIVE REST MESSAGE!");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

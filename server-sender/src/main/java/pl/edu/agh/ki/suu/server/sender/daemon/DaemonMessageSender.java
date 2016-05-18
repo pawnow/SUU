@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
+import pl.edu.agh.ki.suu.mongo.dao.MongoDAO;
 import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 import pl.edu.agh.ki.suu.server.sender.service.MessageSenderFactory;
 
@@ -12,46 +13,74 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static pl.edu.agh.ki.suu.common.api.Defaults.CLIENT_QUEUEU_NAME;
+import static pl.edu.agh.ki.suu.common.api.Defaults.DEFAULT_MESSAGE_COLLECTION_NAME;
+import static pl.edu.agh.ki.suu.common.api.Defaults.PERIOD_TIME;
+
 @Component
 public class DaemonMessageSender{
 
-    private static final int PERIOD_TIME = 6000;
-    private Set<Configuration> registeredClients;
-
     @Autowired
-    private ClientRepository clientRepository;
+    private MongoDAO mongoDAO;
 
     @Scheduled(fixedRate = PERIOD_TIME)
     public void run() {
-        registeredClients = clientRepository.getAll();
-        if(registeredClients.size() > 0){
-            for(Configuration client : registeredClients){
-                sendMessages(client);
-            }
+        sendMessages();
+    }
+
+    private List<Configuration> getAllClients(){
+        List<Configuration> clients = null;
+
+        try {
+            clients = mongoDAO.getAllClients(CLIENT_QUEUEU_NAME);
+        }catch (NullPointerException e){
+
         }
-
+        return clients;
     }
 
-    private List<Message> loadMessage(Configuration client){
-        // TODO load message from database for client
-
-        return createMySimpleMessages(client);
-    }
-
-    private List<Message> createMySimpleMessages(Configuration client){
-        final Message message = new Message();
-        message.setTimeout("12345");
-        message.setPayload("Message Send From Server in: " + client.getProtocolVersion() + " format");
+    private List<Message> loadMessage(){
         List<Message> messages = new ArrayList<>();
-        messages.add(message);
+        Message message = null;
+        try {
+            while(true){
+                message= mongoDAO.dequeue(DEFAULT_MESSAGE_COLLECTION_NAME);
+                messages.add(message);
+            }
+        }catch (NullPointerException e) {
+
+        }
         return messages;
     }
 
-    private void sendMessages(Configuration client){
-        List<Message> messages = loadMessage(client);
-        MessageSender messageSender = MessageSenderFactory.getMessageSender(client.getProtocolVersion());
-        for(Message message : messages){
-            messageSender.send(message, client);
+//    private List<Message> createMySimpleMessages(Configuration client){
+//        final Message message = new Message();
+//        message.setTimeout("12345");
+//        message.setPayload("Message Send From Server in: " + client.getProtocolVersion() + " format");
+//        List<Message> messages = new ArrayList<>();
+//        messages.add(message);
+//        return messages;
+//    }
+
+    private void sendMessages(){
+        List<Configuration> clients = getAllClients();
+        boolean sendFlag = false;
+        if(clients != null){
+            List<Message> messages = loadMessage();
+            for(Message message : messages){
+                sendFlag = false;
+                for(Configuration client : clients){
+                    if(message.getTarget().getName().equals(client.getSender().getName())){
+                        MessageSender messageSender = MessageSenderFactory.getMessageSender(message.getProtocolVersion());
+                        messageSender.send(message);
+                        sendFlag=true;
+                    }
+                }
+                if(!sendFlag){
+                    mongoDAO.enqueue(message, DEFAULT_MESSAGE_COLLECTION_NAME);
+                }
+
+            }
         }
     }
 }

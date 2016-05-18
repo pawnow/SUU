@@ -6,4 +6,7 @@ public interface Defaults {
     String DB_NAME = "queues";
     String COLLECTION_NAME = "queue";
     int MONGO_CHECKIN_INTERVAL = 1000;
+    String CLIENT_QUEUEU_NAME = "clientQueue";
+    int PERIOD_TIME = 6000;
+    String DEFAULT_MESSAGE_COLLECTION_NAME = "messages";
 }

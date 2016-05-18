@@ -9,15 +9,16 @@ import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
 public class SoapMessageSender implements MessageSender{
 
     @Override
-    public void send(Message message, Configuration client) {
-        String soap_uri = prepareSoapUri(message, client);
+    public void send(Message message) {
+        System.out.println("Send Message To: " + message.getTarget().getAddress());
+        String soap_uri = prepareSoapUri(message);
         WebServiceTemplate webServiceTemplate = webServiceTemplate(soap_uri);
         webServiceTemplate.marshalSendAndReceive(message);
     }
 
-    private String prepareSoapUri(Message message, Configuration client){
+    private String prepareSoapUri(Message message){
         // TODO create soap uri using message, client
-        return "tcp://localhost:61616";
+        return message.getTarget().getAddress();
     }
 
     public WebServiceTemplate webServiceTemplate(String soapUri){

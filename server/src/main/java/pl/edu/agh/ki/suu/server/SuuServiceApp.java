@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
+import pl.edu.agh.ki.suu.mongo.dao.MongoDAO;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
@@ -28,6 +29,9 @@ public class SuuServiceApp {
 
     @Bean
     public Queue unregisterQueue() { return new ActiveMQQueue("unregister"); }
+
+    @Bean
+    public MongoDAO mongoDAO() { return new MongoDAO(); }
 
     @Bean
     JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {
