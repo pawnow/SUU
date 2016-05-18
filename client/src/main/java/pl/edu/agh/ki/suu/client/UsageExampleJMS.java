@@ -12,6 +12,7 @@ import javax.jms.ConnectionFactory;
 public class UsageExampleJMS {
 
     private static final String JMS_BROKER_URL = "tcp://localhost:61616";
+//    private static final String JMS_BROKER_URL = "tcp://localhost:56789";
 
     public void sendJmsMessage(){
         final Message message = new Message();
