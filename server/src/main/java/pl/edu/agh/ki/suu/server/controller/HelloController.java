@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.server.model.Hello;
-import pl.edu.agh.ki.suu.server.repository.ClientRepository;
 
 import javax.jms.Queue;
 

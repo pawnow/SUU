@@ -5,20 +5,27 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.server.sender.service.MessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.SendingFailedException;
 
 public class SoapMessageSender implements MessageSender {
 
     @Override
     public void send(Message message, Configuration client) {
         System.out.println("Send Message To: " + message.getTarget().getAddress());
-        String soap_uri = prepareSoapUri(message);
+
+        String soap_uri = prepareSoapUri(client);
         WebServiceTemplate webServiceTemplate = webServiceTemplate(soap_uri);
-        webServiceTemplate.marshalSendAndReceive(message);
+
+        try {
+            webServiceTemplate.marshalSendAndReceive(message);
+        }catch (Exception e){
+            throw new SendingFailedException();
+        }
+
     }
 
-    private String prepareSoapUri(Message message) {
-        // TODO create soap uri using message, client
-        return message.getTarget().getAddress();
+    private String prepareSoapUri(Configuration client) {
+        return client.getSender().getAddress();
     }
 
     public WebServiceTemplate webServiceTemplate(String soapUri) {
