@@ -13,11 +13,12 @@ public class Client {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(Client.class, args);
-        UsageExampleJMS usageExampleJMS = applicationContext.getBean(UsageExampleJMS.class);
+//        UsageExampleJMS usageExampleJMS = applicationContext.getBean(UsageExampleJMS.class);
         UsageExampleSoap usageExampleSoap = applicationContext.getBean(UsageExampleSoap.class);
         usageExampleSoap.sendSoapRequest();
-        usageExampleJMS.sendJmsMessage("JMS", "example_address", "jms1");
-        usageExampleJMS.registerJMSClient("register", "example_address", "jms1");
+//        usageExampleJMS.sendJmsMessage("JMS", "example_address", "jms1");
+//        usageExampleJMS.registerJMSClient("register", "example_address", "jms1");
+        System.out.println("Done.");
     }
 
 }
