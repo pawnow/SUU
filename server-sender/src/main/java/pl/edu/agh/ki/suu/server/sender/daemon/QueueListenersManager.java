@@ -8,6 +8,7 @@ import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.mongo.dao.MongoDAO;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import static pl.edu.agh.ki.suu.common.api.Constants.REST_PROTOCOL_NAME;
@@ -22,7 +23,7 @@ public class QueueListenersManager implements InitializingBean {
     private class QueueData {
         private Timer timer = new Timer(false);
         private DaemonMessageSender queueListener;
-        private Set<Configuration> clients = new ConcurrentSkipListSet<>();
+        private Set<Configuration> clients = ConcurrentHashMap.newKeySet();
     }
 
     private Map<String, QueueData> queues = new HashMap<>();

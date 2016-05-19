@@ -1,14 +1,13 @@
 package pl.edu.agh.ki.suu.mongo.dao;
 
 import com.google.gson.Gson;
+import com.mongodb.client.MongoIterable;
 import org.bson.Document;
 import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.mongo.dbaccess.MongoCollectionRetriever;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static pl.edu.agh.ki.suu.common.api.Defaults.DB_NAME;
 import static pl.edu.agh.ki.suu.common.api.Defaults.HOST;
@@ -57,13 +56,11 @@ public class MongoDAO {
         // TODO remove configuration from mongo
     }
 
-    public List<Configuration> getAllClients(String queueName){
-        List<Document> documents = (List<Document>) collectionRetriever
-                .getMongoCollection(dbname, queueName).find()
-                .into(new ArrayList<Document>());
-        List<Configuration> clients = new ArrayList<>();
-        for(Document doc : documents){
-            clients.add(gson.fromJson(doc.toJson(), Configuration.class));
+    public Set<Configuration> getAllClients(String queueName) {
+        Set<Configuration> clients = new HashSet<>();
+        MongoIterable<Document> iterableResults =  collectionRetriever.getMongoCollection(dbname, queueName).find();
+        for (Document configDocument: iterableResults) {
+            clients.add(gson.fromJson(configDocument.toJson(), Configuration.class));
         }
         return clients;
     }
