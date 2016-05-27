@@ -1,5 +1,6 @@
 package pl.edu.agh.ki.suu.client.jms;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+import org.springframework.web.client.RestTemplate;
+import pl.edu.agh.ki.suu.common.cdm.Configuration;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
@@ -18,6 +23,8 @@ import javax.jms.Queue;
 @EnableJms
 @EnableAutoConfiguration
 public class ClientJmsApp {
+
+    private static final String JMS_BROKER_URL = "tcp://localhost:61616";
 
     @Bean
     public Queue queue() {
@@ -35,10 +42,25 @@ public class ClientJmsApp {
         startJMSBroker();
         enableSerializeCustomPackages();
         ApplicationContext applicationContext = SpringApplication.run(ClientJmsApp.class, args);
+        registerJmsMessage();
+    }
+
+    private static void registerJmsMessage(){
+        final Configuration configuration = new Configuration();
+        final Configuration.Sender sender = new Configuration.Sender();
+        sender.setAddress("tcp://localhost:56789");
+        sender.setName("messages-jms");
+        configuration.setSender(sender);
+        configuration.setProtocolVersion("JMS");
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
+        MessageCreator messageCreator = session -> session.createObjectMessage(configuration);
+        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
+        jmsTemplate.send("register", messageCreator);
     }
 
     private static void startJMSBroker(){
         BrokerService broker = new BrokerService();
+        broker.setBrokerName("Mieczyslaw");
         broker.setUseJmx(false);//getManagementContext();
         try {
             broker.addConnector("tcp://localhost:56789");
