@@ -36,12 +36,12 @@ public class QueueListenersManager implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         DaemonMessageSender.initMongoDao(mongoDao);
-        Configuration configuration = new Configuration();
-        configuration.setProtocolVersion(REST_PROTOCOL_NAME);
-        configuration.setSender(new Configuration.Sender());
-        configuration.getSender().setAddress("127.0.0.1:1234");
-        configuration.getSender().setName("Fake client");
-        addNewClient("queue", configuration);
+//        Configuration configuration = new Configuration();
+//        configuration.setProtocolVersion(REST_PROTOCOL_NAME);
+//        configuration.setSender(new Configuration.Sender());
+//        configuration.getSender().setAddress("127.0.0.1:1234");
+//        configuration.getSender().setName("Fake client");
+//        addNewClient("queue", configuration);
     }
 
     private void addQueueIfAbsent(String queueName) {

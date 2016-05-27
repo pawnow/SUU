@@ -11,7 +11,7 @@ public class SoapMessageSender implements MessageSender {
 
     @Override
     public void send(Message message, Configuration client) {
-        System.out.println("Send Message To: " + message.getTarget().getAddress());
+        //System.out.println("Send Message To: " + message.getTarget().getAddress());
 
         String soap_uri = prepareSoapUri(client);
         WebServiceTemplate webServiceTemplate = webServiceTemplate(soap_uri);

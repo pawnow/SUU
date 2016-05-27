@@ -30,7 +30,7 @@ public class ClientWsApp {
         final Configuration configuration = new Configuration();
         final Configuration.Sender sender = new Configuration.Sender();
         sender.setAddress("http://localhost:9090/ws");
-        sender.setName("WS-CLIENT-01");
+        sender.setName("messages");
         configuration.setSender(sender);
         configuration.setProtocolVersion("SOAP");
         restTemplate.postForObject("http://localhost:8080/suu/register", configuration, String.class);
