@@ -1,6 +1,5 @@
 package pl.edu.agh.ki.suu.common.cdm;
 
-import javax.swing.text.StringContent;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
