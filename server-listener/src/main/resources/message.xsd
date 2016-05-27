@@ -1,0 +1,40 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"
+           jaxb:version="1.0"
+           targetNamespace="http://localhost:8080/ws">
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true">
+                <xjc:serializable uid="12343"/>
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="ProtocolVersion"/>
+                <xs:element name="Sender">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="Name"/>
+                            <xs:element type="xs:string" name="Address"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Target">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="Name"/>
+                            <xs:element type="xs:string" name="Address"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element type="xs:string" name="Timestamp"/>
+                <xs:element type="xs:string" name="Timeout"/>
+                <xs:element type="xs:string" name="Payload"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
