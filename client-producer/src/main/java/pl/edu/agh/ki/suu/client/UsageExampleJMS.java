@@ -24,7 +24,7 @@ public class UsageExampleJMS {
         message.setSender(new Message.Sender());
         message.setTarget(target);
         message.setTimeout("12345");
-        message.setPayload("LOCALJ MS");
+        message.setPayload("LOCAL JMS");
         message.setProtocolVersion(protocol);
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
         MessageCreator messageCreator = session -> session.createObjectMessage(message);
