@@ -15,8 +15,11 @@
         <module>common</module>
         <module>mongo</module>
         <module>other</module>
+        <module>server-sender</module>
         <module>server</module>
         <module>client</module>
+        <module>client-jms</module>
+        <module>client-ws</module>
     </modules>
 
     <properties>

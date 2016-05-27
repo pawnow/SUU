@@ -52,8 +52,8 @@ public class MongoConsumer extends AbstractClientConsumer {
         if (result == null) {
             return null;
         }
-        String config = result.getString(CONFIG_KEY);
-        String payload = gson.fromJson(config, Message.class).getPayload();
+//        String config = result.getString(CONFIG_KEY);
+        String payload = gson.fromJson(result.toJson(), Message.class).getPayload();
         if (pojoType == null) {
             return gson.fromJson(payload, Map.class);
         }

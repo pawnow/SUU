@@ -13,11 +13,13 @@ public class UsageExampleSoap {
     private WebServiceTemplate webServiceTemplate = webServiceTemplate();
 
     public void sendSoapRequest() {
-        final Message message = new Message();
-        message.setSender(new Message.Sender());
-        message.setTimeout("12345");
-        message.setPayload("LOCALSOAP");
-        webServiceTemplate.marshalSendAndReceive(message);
+        for(int i = 0; i < 10; i++) {
+            final Message message = new Message();
+            message.setSender(new Message.Sender());
+            message.setTimeout("12345");
+            message.setPayload("LOCALSOAP " + i);
+            webServiceTemplate.marshalSendAndReceive(message);
+        }
     }
 
     public WebServiceTemplate webServiceTemplate(){

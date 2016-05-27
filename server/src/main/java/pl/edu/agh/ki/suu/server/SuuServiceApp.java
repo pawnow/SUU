@@ -5,14 +5,11 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
-import pl.edu.agh.ki.suu.common.cdm.Message;
+import pl.edu.agh.ki.suu.mongo.dao.MongoDAO;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
@@ -26,6 +23,15 @@ public class SuuServiceApp {
     public Queue queue() {
         return new ActiveMQQueue("messages");
     }
+
+    @Bean
+    public Queue registerQueue() { return new ActiveMQQueue("register"); }
+
+    @Bean
+    public Queue unregisterQueue() { return new ActiveMQQueue("unregister"); }
+
+    @Bean
+    public MongoDAO mongoDAO() { return new MongoDAO(); }
 
     @Bean
     JmsListenerContainerFactory<?> myJmsContainerFactory(ConnectionFactory connectionFactory) {

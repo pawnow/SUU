@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.edu.agh.ki.suu.common.cdm.Configuration;
 import pl.edu.agh.ki.suu.common.cdm.Message;
 import pl.edu.agh.ki.suu.server.model.Hello;
 
@@ -25,6 +26,12 @@ public class HelloController {
     @Autowired
     private Queue queue;
 
+    @Autowired
+    private Queue registerQueue;
+
+    @Autowired
+    private Queue unregisterQueue;
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public Hello getHello(){
         Hello hello = new Hello();
@@ -35,6 +42,16 @@ public class HelloController {
     @RequestMapping(value = "/message", method = RequestMethod.POST)
     public void setHello(@RequestBody Message message){
         this.jmsMessagingTemplate.convertAndSend(this.queue, message);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void register(@RequestBody Configuration configuration){
+        this.jmsMessagingTemplate.convertAndSend(this.registerQueue, configuration);
+    }
+
+    @RequestMapping(value = "/unregister", method = RequestMethod.POST)
+    public void unregister(@RequestBody Configuration configuration){
+        this.jmsMessagingTemplate.convertAndSend(this.unregisterQueue, configuration);
     }
 
 }

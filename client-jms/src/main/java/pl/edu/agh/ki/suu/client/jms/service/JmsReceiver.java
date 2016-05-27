@@ -1,4 +1,4 @@
-package pl.edu.agh.ki.suu.server.service;
+package pl.edu.agh.ki.suu.client.jms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +17,7 @@ public class JmsReceiver {
 
     @JmsListener(destination = "mailbox-destination", containerFactory = "myJmsContainerFactory")
     public void receiveMessage(Message message) {
-        System.out.println("Received <" + message + ">");
+        System.out.println("JMS CLIENT | Received <" + message + ">");
         context.close();
         FileSystemUtils.deleteRecursively(new File("activemq-data"));
     }
