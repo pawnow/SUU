@@ -17,9 +17,10 @@
         <module>other</module>
         <module>server-sender</module>
         <module>server</module>
-        <module>client</module>
-        <module>client-jms</module>
-        <module>client-ws</module>
+        <module>client-producer</module>
+        <module>client-consumer-jms</module>
+        <module>client-consumer-ws</module>
+        <module>client-consumer-rest</module>
     </modules>
 
     <properties>
