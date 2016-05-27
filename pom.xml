@@ -21,6 +21,7 @@
         <module>client-consumer-jms</module>
         <module>client-consumer-ws</module>
         <module>client-consumer-rest</module>
+        <module>client-consumer-mail</module>
     </modules>
 
     <properties>
