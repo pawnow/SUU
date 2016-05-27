@@ -8,6 +8,6 @@ public class MyRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("jms:queue:messages").to("receiver");
+        from("jms:queue:client-jms").to("receiver");
     }
 }

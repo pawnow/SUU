@@ -28,7 +28,7 @@ public class ClientJmsApp {
 
     @Bean
     public Queue queue() {
-        return new ActiveMQQueue("messages");
+        return new ActiveMQQueue("client-jms");
     }
 
     @Bean
@@ -51,6 +51,7 @@ public class ClientJmsApp {
         sender.setAddress("tcp://localhost:56789");
         sender.setName("messages-jms");
         configuration.setSender(sender);
+        configuration.setSomeParameter("client-jms");
         configuration.setProtocolVersion("JMS");
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMS_BROKER_URL);
         MessageCreator messageCreator = session -> session.createObjectMessage(configuration);
