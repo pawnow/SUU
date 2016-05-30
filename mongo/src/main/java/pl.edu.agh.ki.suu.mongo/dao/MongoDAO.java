@@ -53,7 +53,9 @@ public class MongoDAO {
     }
 
     public void unregister(Configuration configuration, String queueName){
-        // TODO remove configuration from mongo
+        collectionRetriever
+                .getMongoCollection(dbname, queueName)
+                .deleteMany(new Document(gson.fromJson(gson.toJson(configuration), Map.class)));
     }
 
     public Set<Configuration> getAllClients(String queueName) {
