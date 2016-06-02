@@ -1,12 +1,11 @@
 package pl.edu.agh.ki.suu.server.sender.service;
 
 import pl.edu.agh.ki.suu.server.sender.service.impl.JmsMessageSender;
+import pl.edu.agh.ki.suu.server.sender.service.impl.MailMessageSender;
 import pl.edu.agh.ki.suu.server.sender.service.impl.RestMessageSender;
 import pl.edu.agh.ki.suu.server.sender.service.impl.SoapMessageSender;
 
-import static pl.edu.agh.ki.suu.common.api.Constants.JMS_PROTOCOL_NAME;
-import static pl.edu.agh.ki.suu.common.api.Constants.REST_PROTOCOL_NAME;
-import static pl.edu.agh.ki.suu.common.api.Constants.SOAP_PROTOCOL_NAME;
+import static pl.edu.agh.ki.suu.common.api.Constants.*;
 
 public class MessageSenderFactory {
 
@@ -20,6 +19,8 @@ public class MessageSenderFactory {
             return new RestMessageSender();
         } else if (protocolVersion.equalsIgnoreCase(SOAP_PROTOCOL_NAME)) {
             return new SoapMessageSender();
+        } else if (protocolVersion.equalsIgnoreCase(MAIL_PROTOCOL_NAME)) {
+            return new MailMessageSender();
         }
         return null;
     }

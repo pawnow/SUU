@@ -33,6 +33,20 @@ public class QueueListenersManager implements InitializingBean {
         queues.get(queueName).clients.add(consumerConfiguration);
     }
 
+    public void removeClient(String queueName, Configuration consumerConfiguration) {
+        remove(queueName, consumerConfiguration);
+    }
+
+    private void remove(String queueName, Configuration consumerConfiguration){
+        for(Iterator<Configuration> iterator = queues.get(queueName).clients.iterator();iterator.hasNext();){
+            Configuration tmpConfiguration = iterator.next();
+            if(tmpConfiguration.getSender().getAddress().equals(consumerConfiguration.getSender().getAddress())
+                    && tmpConfiguration.getSender().getName().equals(consumerConfiguration.getSender().getName())){
+                iterator.remove();
+            }
+        }
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         DaemonMessageSender.initMongoDao(mongoDao);

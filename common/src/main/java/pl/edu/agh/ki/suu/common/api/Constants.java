@@ -5,4 +5,5 @@ public interface Constants {
     String JMS_PROTOCOL_NAME = "JMS";
     String REST_PROTOCOL_NAME = "REST";
     String SOAP_PROTOCOL_NAME = "SOAP";
+    String MAIL_PROTOCOL_NAME = "MAIL";
 }

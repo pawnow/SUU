@@ -33,7 +33,7 @@ public class Client {
 
     private static List<Message> createMessages(String payloadSuffix) {
         List<Message> result = new ArrayList<>();
-        List<String> queueNames = Arrays.asList("messages-jms", "messages-ws", "messages-rest");
+        List<String> queueNames = Arrays.asList("messages-jms", "messages-ws", "messages-rest", "messages-mail");
 
         for(int i = 1; i <= 10; i++){
             for(String name : queueNames){
